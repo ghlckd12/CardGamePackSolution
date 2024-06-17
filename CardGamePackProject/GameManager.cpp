@@ -618,6 +618,7 @@ void Holdem::play(User &user)
             {
                 system("cls");
                 holdemDesign.showHoldemResult(user.getNickname(), m_userRankResultVector, m_userRankResultCardVector);
+                holdemDesign.gotoxy(0, 3);
                 cout << "축하합니다! " << m_sumBettingPoint << " 만큼의 포인트를 얻었습니다." << endl;
                 user.setGamePoint(to_string(stoi(user.getGamePoint()) + m_sumBettingPoint));
                 myInfo.pop_back();
@@ -625,7 +626,9 @@ void Holdem::play(User &user)
                 design.printMyInfo(myInfo);
                 break;
             }
-
+            
+            cout << "패배하였습니다,,," << endl;
+            Sleep(2000);
             system("cls");
             holdemDesign.showHoldemResult(user.getNickname(), m_userRankResultVector, m_userRankResultCardVector);
             myInfo.pop_back();
@@ -636,6 +639,7 @@ void Holdem::play(User &user)
 
         turnNum++;
     }
+    holdemDesign.gotoxy(0, 33);
 }
 
 // OldMaid 클래스 함수 정의
@@ -1175,6 +1179,7 @@ void OldMaid::play(User& user)
   cout << "도둑잡기\n";
   cout << "게임 시작! \n\n";
   design.printMyInfo(myInfo);
+  oldMaidDesign.gotoxy(0, 3);
   // 2 - 1) 카드 분배
   cout << "(1) 카드를 분배합니다.\n";
   dealCard();
@@ -1221,8 +1226,9 @@ void OldMaid::play(User& user)
 
     system("cls");
     design.printMyInfo(myInfo);
+    oldMaidDesign.gotoxy(0, 0);
+    
     cout << "도둑잡기\n\n";
-    cout << (getPickNum() / 3) + 1 << "라운드입니다\n\n";
 
     
     for (int i = 0; i < player1Cards.size(); i++)
@@ -1235,7 +1241,8 @@ void OldMaid::play(User& user)
     oldMaidDesign.printCardNum(user.getNickname(), printDeckNum, m_nickNameVector);
     oldMaidDesign.oldMaidPrintMyCard(player1Cards);
     oldMaidDesign.printSelectRoutine(playerOrder, m_nickNameVector);
-
+    oldMaidDesign.gotoxy(0, 7);
+    cout << (getPickNum() / 3) + 1 << "라운드입니다\n\n";
 
     for (int i = 0; i < 3; i++)
     {
@@ -1276,7 +1283,7 @@ void OldMaid::play(User& user)
   else
   {
       user.setGamePoint(to_string(stoi(user.getGamePoint()) - m_gamePrice/3));
-      cout << "아쉽지만, 승리하지 못했습니다" << m_gamePrice / 3 << "만큼의 포인트를 잃었습니다." << endl;
+      cout << "아쉽지만, 승리하지 못했습니다 " << m_gamePrice / 3 << "만큼의 포인트를 잃었습니다." << endl;
   }
 
   cout << "\n방을 나가는 중입니다....\n";
