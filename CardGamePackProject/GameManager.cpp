@@ -584,6 +584,7 @@ void Holdem::play(User &user)
         if (isFold)
         {
             system("cls");
+            selectWinner();
             holdemDesign.showHoldemResult(user.getNickname(), m_userRankResultVector, m_userRankResultCardVector);
             break;
         }
@@ -1167,13 +1168,13 @@ void OldMaid::play(User& user)
   vector<string> myInfo;
   myInfo.push_back(user.getNickname());
   myInfo.push_back(user.getGamePoint());
-  //design.printMyInfo(myInfo);
+  
 
   OldMaidDesign oldMaidDesign;
   
   cout << "도둑잡기\n";
   cout << "게임 시작! \n\n";
-
+  design.printMyInfo(myInfo);
   // 2 - 1) 카드 분배
   cout << "(1) 카드를 분배합니다.\n";
   dealCard();
@@ -1219,6 +1220,7 @@ void OldMaid::play(User& user)
   while (true) {
 
     system("cls");
+    design.printMyInfo(myInfo);
     cout << "도둑잡기\n\n";
     cout << (getPickNum() / 3) + 1 << "라운드입니다\n\n";
 

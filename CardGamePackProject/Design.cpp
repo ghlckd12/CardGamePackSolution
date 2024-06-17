@@ -110,7 +110,7 @@ void Design::printMyCard(vector<string>& myCard)
     cout << "------my Card-----";
 
     gotoxy(50, 4);
-    cout << "|  | ";
+    cout << "| ¢¼ | ";
     for (int i = 0; i < spade.size(); i++)
     {
         cout << spade[i] << " ";
