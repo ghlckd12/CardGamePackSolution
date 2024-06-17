@@ -22,12 +22,12 @@ void Design::cardDesign(string & card, int x, int y)
         shape = "♣";
     }
 
-    drawSquare(x, y, 10, 8);
-    gotoxy(x + 1, y + 1);
+    drawSquare(x, y, 12, 8);
+    gotoxy(x + 2, y + 1);
     cout << num;
-    gotoxy(x + 9, y + 7);
+    gotoxy(x + 10, y + 7);
     cout << num;
-    gotoxy(x + 5, y + 4);
+    gotoxy(x + 6, y + 4);
     cout << shape;
 
 }
@@ -106,31 +106,31 @@ void Design::printMyCard(vector<string>& myCard)
             clover.push_back(num);
         }
     }
-    gotoxy(50, 3);
+    gotoxy(68, 1);
     cout << "------my Card-----";
 
-    gotoxy(50, 4);
+    gotoxy(68, 2);
     cout << "| ♠ | ";
     for (int i = 0; i < spade.size(); i++)
     {
         cout << spade[i] << " ";
     }
 
-    gotoxy(50, 5);
+    gotoxy(68, 3);
     cout << "| ◆ | ";
     for (int i = 0; i < diamond.size(); i++)
     {
         cout << diamond[i] << " ";
     }
 
-    gotoxy(50, 6);
+    gotoxy(68, 4);
     cout << "| ♥ | ";
     for (int i = 0; i < heart.size(); i++)
     {
         cout << heart[i] << " ";
     }
 
-    gotoxy(50, 7);
+    gotoxy(68, 5);
     cout << "| ♣ | ";
     for (int i = 0; i < clover.size(); i++)
     {
@@ -140,10 +140,10 @@ void Design::printMyCard(vector<string>& myCard)
 
 void Design::printMyInfo(vector<string>& myInfo)
 {
-    drawSquare(80, 3, 20, 5);
-    gotoxy(82, 5);
+    drawSquare(91, 1, 20, 5);
+    gotoxy(93, 3);
     cout << "닉네임 : " << myInfo[0];
-    gotoxy(82, 6);
+    gotoxy(93, 4);
     cout << "포인트 : " << myInfo[1];
 
     gotoxy(100, 30);
@@ -159,11 +159,11 @@ void HoldemDesign::printCommunityCard(vector<string>& communityCard, int turnNum
 
     if (turnNum == 0)
     {
-        drawSquare(5, 10, 10, 8); // (x, y, 가로, 세로)
-        drawSquare(20, 10, 10, 8);
-        drawSquare(35, 10, 10, 8);
-        drawSquare(50, 10, 10, 8);
-        drawSquare(65, 10, 10, 8);
+        drawSquare(5, 10, 12, 8); // (x, y, 가로, 세로)
+        drawSquare(20, 10, 12, 8);
+        drawSquare(35, 10, 12, 8);
+        drawSquare(50, 10, 12, 8);
+        drawSquare(65, 10, 12, 8);
     }
     else
     {
@@ -173,12 +173,12 @@ void HoldemDesign::printCommunityCard(vector<string>& communityCard, int turnNum
         }
         if (turnNum == 1)
         {
-            drawSquare(50, 10, 10, 8);
-            drawSquare(65, 10, 10, 8);
+            drawSquare(50, 10, 12, 8);
+            drawSquare(65, 10, 12, 8);
         }
         else if (turnNum == 2)
         {
-            drawSquare(65, 10, 10, 8);
+            drawSquare(65, 10, 12, 8);
         }
     }
 
@@ -187,13 +187,18 @@ void HoldemDesign::printCommunityCard(vector<string>& communityCard, int turnNum
 
 void HoldemDesign::showHoldemResult(string Nickname, vector<string>& rank, vector<vector<string>>& finalHand)
 {
-    system("cls");
+    // 현재 커서 위치 저장
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    COORD originalPos = csbi.dwCursorPosition;
+
+    //system("cls");
     int cardNum = 0; // 한 명의 사람이 가진 카드의 수
     cout << "-------홀덤--------" << endl;
     cout << "!결과 공개!" << endl;
     for (int i = 0; i < 3; i++)
     {
-        gotoxy(0, 4 + 10 * i);
+        gotoxy(0, 8 + 10 * i);
         if (i == 0)
         {
             cout << Nickname << "\n";
@@ -210,10 +215,11 @@ void HoldemDesign::showHoldemResult(string Nickname, vector<string>& rank, vecto
         cardNum = finalHand[i].size();
         for (int j = 0; j < cardNum; j++)
         {
-            cardDesign(finalHand[i][j], 25 + j * 15, 3 + i * 10);
+            cardDesign(finalHand[i][j], 25 + j * 15, 5 + i * 10);
         }
     }
-    gotoxy(1, 32);
+    // 원래 위치로 커서 이동
+    //gotoxy(0, 35);
 }
 
 void OldMaidDesign::printJoker()
@@ -236,7 +242,7 @@ void OldMaidDesign::printJoker()
     setConsoleTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY); // 빨간색 설정
     // Print each row of the combined letters
     for (size_t row = 0; row < max_height; ++row) {
-        gotoxy(50, 8 + row);
+        gotoxy(68, 11 + row);
         for (const auto& letter : letters) {
             if (row < letter.size()) {
                 cout << letter[row];
@@ -263,13 +269,13 @@ void OldMaidDesign::printCardNum(string nickname, vector<int>& cardNum, vector <
     
     vector <string> nickVec = { nickname, "Hong Jin Ho", "Jand Dong Min" };
 
-    gotoxy(90, 1);
-    cout << "------- 남은 카드 개수 -------\n";
+    gotoxy(68, 1);
+    cout << "----남은 카드 개수----";
     for (int i = 0; i < 3; i++)
     {
-        gotoxy(90, 2 + i);
+        gotoxy(68, 2 + i);
 
-        cout << nickVec[i] << "님의 카드 수 : " << cardNum[i] << endl;
+        cout << nickVec[i] << " : " << cardNum[i] << endl;
     }
     
     // 원래 위치로 커서 이동
@@ -359,31 +365,31 @@ void OldMaidDesign::oldMaidPrintMyCard(vector<string>& myCard)
       clover.push_back(num);
     }
   }
-  gotoxy(50, 3);
+  gotoxy(68, 5);
   cout << "------my Card-----";
 
-  gotoxy(50, 4);
+  gotoxy(68, 6);
   cout << "| ♠ | ";
   for (int i = 0; i < spade.size(); i++)
   {
     cout << spade[i] << " ";
   }
 
-  gotoxy(50, 5);
+  gotoxy(68, 7);
   cout << "| ◆ | ";
   for (int i = 0; i < diamond.size(); i++)
   {
     cout << diamond[i] << " ";
   }
 
-  gotoxy(50, 6);
+  gotoxy(68, 8);
   cout << "| ♥ | ";
   for (int i = 0; i < heart.size(); i++)
   {
     cout << heart[i] << " ";
   }
 
-  gotoxy(50, 7);
+  gotoxy(68,9);
   cout << "| ♣ | ";
   for (int i = 0; i < clover.size(); i++)
   {
@@ -400,13 +406,13 @@ void OldMaidDesign::printSelectRoutine(vector<string>& playerTurn, vector<string
   GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
   COORD originalPos = csbi.dwCursorPosition;
 
-  gotoxy(90, 6);
+  gotoxy(0, 2);
 
   
   cout << "------- 플레이어 순서 -------\n";
   for (int i = 0; i < playerTurn.size(); ++i)
   {
-    gotoxy(90, 7 + i);
+    gotoxy(0, 3 + i);
     cout << (i + 1) << "번째 : " << nickNameVector[i] << "\n";
   };
   
