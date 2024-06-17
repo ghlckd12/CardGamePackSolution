@@ -626,7 +626,9 @@ void Holdem::play(User &user)
                 design.printMyInfo(myInfo);
                 break;
             }
-
+            
+            cout << "패배하였습니다,,," << endl;
+            Sleep(2000);
             system("cls");
             holdemDesign.showHoldemResult(user.getNickname(), m_userRankResultVector, m_userRankResultCardVector);
             myInfo.pop_back();
@@ -1281,7 +1283,7 @@ void OldMaid::play(User& user)
   else
   {
       user.setGamePoint(to_string(stoi(user.getGamePoint()) - m_gamePrice/3));
-      cout << "아쉽지만, 승리하지 못했습니다" << m_gamePrice / 3 << "만큼의 포인트를 잃었습니다." << endl;
+      cout << "아쉽지만, 승리하지 못했습니다 " << m_gamePrice / 3 << "만큼의 포인트를 잃었습니다." << endl;
   }
 
   cout << "\n방을 나가는 중입니다....\n";
